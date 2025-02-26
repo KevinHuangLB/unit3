@@ -40,4 +40,3 @@ void mouseReleased() {
     selectedColor = darkBlue;
   }
 }
-void 
