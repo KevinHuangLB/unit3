@@ -11,70 +11,51 @@ color black = #232323;
 color white = #FFFFFF;
 color selectedColor;
 
+float sliderY;
+float thickness;
+
 void setup() {
   size(1000, 800);
-  background(255);
+  background(245);
   stroke(black);
-  selectedColor = white;
+  selectedColor = red;
+  sliderY = 660;
+  thickness = 3;
 }
 void draw() {
   // BUTTONS
   fill(153);
   rect(0, 560, 1000, 240);
-  
-  
-  // PACKAGE INTO 1 BUTTON FUNCTION
-  // LOOK GOOGLE DOC
-  
-  
-  
 
-  tactile(50, 690, 30);
-  fill(red);
-  circle(50, 690, 60);
-
-  tactile(50, 760, 30);
-  fill(pink);
-  circle(50, 760, 60);
-
-  tactile(120, 690, 30);
-  fill(yellow);
-  circle(120, 690, 60);
-
-  tactile(120, 760, 30);
-  fill(orange);
-  circle(120, 760, 60);
-
-  tactile(190, 690, 30);
-  fill(green);
-  circle(190, 690, 60);
-
-  tactile(190, 760, 30);
-  fill(lightBlue);
-  circle(190, 760, 60);
-
-  tactile(260, 690, 30);
-  fill(blue);
-  circle(260, 690, 60);
-
-  tactile(260, 760, 30);
-  fill(purple);
-  circle(260, 760, 60);
-
-  tactile(330, 690, 30);
-  fill(gray);
-  circle(330, 690, 60);
-
-  tactile(330, 760, 30);
-  fill(black);
-  circle(330, 760, 60);
+  circleButton(50, 690, 30, red);
+  circleButton(50, 760, 30, pink);
+  circleButton(120, 690, 30, yellow);
+  circleButton(120, 760, 30, orange);
+  circleButton(190, 690, 30, green);
+  circleButton(190, 760, 30, lightBlue);
+  circleButton(260, 690, 30, blue);
+  circleButton(260, 760, 30, purple);
+  circleButton(330, 690, 30, gray);
+  circleButton(330, 760, 30, black);
 
   stroke(black);
-  strokeWeight(1);
+  strokeWeight(3);
 
   // COLOR PANEL
-  fill(selectedColor);
-  rect(100, 590, 160, 50);
+  stroke(selectedColor);
+  strokeWeight(thickness);
+  line(150, 620, 400, 620);
+  stroke(black);
+
+  //SLIDER CHANGE THE TACTILE TO BE WHOLE SLIDER MAKE IT RECT TO MAKE WHOLE SLIDER TACTILE
+  strokeWeight(8);
+  line(460, 660, 460, 780);
+  fill(red);
+  strokeWeight(2);
+  sliderTactile(460, 20);
+  circle(460, sliderY, 20);
+  strokeWeight(2);
+  stroke(black);
 }
 void mouseReleased() {
   if (dist(50, 690, mouseX, mouseY) < 30) {
@@ -107,8 +88,9 @@ void mouseReleased() {
   if (dist(330, 760, mouseX, mouseY) < 30) {
     selectedColor = black;
   }
+  controlSlider();
 }
-void tactile(int x, int y, int r) {
+void circleButton(int x, int y, int r, color c) {
   if (dist(x, y, mouseX, mouseY) < r) {
     stroke(white);
     strokeWeight(2);
@@ -116,11 +98,31 @@ void tactile(int x, int y, int r) {
     stroke(black);
     strokeWeight(1);
   }
+  fill(c);
+  circle(x, y, r * 2);
 }
 void mouseDragged() {
   if (mouseY < 560) {
     stroke(selectedColor);
+    strokeWeight(thickness);
     line(pmouseX, pmouseY, mouseX, mouseY);
     stroke(black);
+    strokeWeight(2);
+  }
+  controlSlider();
+}
+void controlSlider() {
+  if (mouseY > 660 && mouseY < 780 && mouseX > 450 && mouseX < 470) {
+    sliderY = mouseY;
+  }
+  thickness = map(sliderY, 660, 780, 2, 30);
+}
+void sliderTactile(int x, int r) {
+  if (dist(x, sliderY, mouseX, mouseY) < r - 10) {
+    stroke(white);
+    strokeWeight(2);
+  } else {
+    stroke(black);
+    strokeWeight(1);
   }
 }
