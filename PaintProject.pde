@@ -1,3 +1,9 @@
+PImage lebron;
+PImage lebronBody;
+
+boolean lebronOn;
+boolean lebronBodyOn;
+
 color red = #C61E12;
 color pink = #FFC0CB;
 color yellow = #FFF600;
@@ -21,11 +27,15 @@ void setup() {
   selectedColor = red;
   sliderY = 660;
   thickness = 3;
+  lebron = loadImage("lebronjames.png");
+  lebronBody = loadImage("lebronjamesfullbody.png");
 }
 void draw() {
   // BUTTONS
   fill(153);
   rect(0, 560, 1000, 240);
+  image(lebronBody, 2, 60);
+  image(lebron, 80, 200);
 
   circleButton(50, 690, 30, red);
   circleButton(50, 760, 30, pink);
@@ -35,7 +45,7 @@ void draw() {
   circleButton(190, 760, 30, lightBlue);
   circleButton(260, 690, 30, blue);
   circleButton(260, 760, 30, purple);
-  circleButton(330, 690, 30, gray);
+  circleButton(330, 690, 30, white);
   circleButton(330, 760, 30, black);
 
   stroke(black);
@@ -83,7 +93,7 @@ void mouseReleased() {
     selectedColor = purple;
   }
   if (dist(330, 690, mouseX, mouseY) < 30) {
-    selectedColor = gray;
+    selectedColor = white;
   }
   if (dist(330, 760, mouseX, mouseY) < 30) {
     selectedColor = black;
@@ -115,7 +125,7 @@ void controlSlider() {
   if (mouseY > 660 && mouseY < 780 && mouseX > 450 && mouseX < 470) {
     sliderY = mouseY;
   }
-  thickness = map(sliderY, 660, 780, 2, 30);
+  thickness = map(sliderY, 660, 780, 2, 150);
 }
 void sliderTactile(int x, int r) {
   if (dist(x, sliderY, mouseX, mouseY) < r - 10) {
