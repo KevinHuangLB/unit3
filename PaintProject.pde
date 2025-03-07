@@ -34,8 +34,6 @@ void draw() {
   // BUTTONS
   fill(153);
   rect(0, 560, 1000, 240);
-  image(lebronBody, 2, 60);
-  image(lebron, 80, 200);
 
   circleButton(50, 690, 30, red);
   circleButton(50, 760, 30, pink);
@@ -66,6 +64,8 @@ void draw() {
   circle(460, sliderY, 20);
   strokeWeight(2);
   stroke(black);
+
+  // STAMP BUTTON
 }
 void mouseReleased() {
   if (dist(50, 690, mouseX, mouseY) < 30) {
@@ -111,6 +111,19 @@ void circleButton(int x, int y, int r, color c) {
   fill(c);
   circle(x, y, r * 2);
 }
+
+void rectButton(int x, int y, int w, int h, PImage i) { // CHANGE THIS THIS IS NOT COMPLETE
+    if (mouseX > x && mouseX < x + w && mouseY > y && mouseY < y+h) {
+    stroke(white);
+    strokeWeight(2);
+  } else {
+    stroke(black);
+    strokeWeight(1);
+  }
+  strokeWeight(1);
+  rect(x,y,w,h);
+  image(lebron,x,y,w,h);
+}
 void mouseDragged() {
   if (mouseY < 560) {
     stroke(selectedColor);
@@ -121,14 +134,23 @@ void mouseDragged() {
   }
   controlSlider();
 }
+void mousePressed() {
+  if (mouseY < 560) {
+    stroke(selectedColor);
+    strokeWeight(thickness);
+    line(pmouseX, pmouseY, mouseX, mouseY);
+    stroke(black);
+    strokeWeight(2);
+  }
+}
 void controlSlider() {
   if (mouseY > 660 && mouseY < 780 && mouseX > 450 && mouseX < 470) {
     sliderY = mouseY;
   }
-  thickness = map(sliderY, 660, 780, 2, 150);
+  thickness = map(sliderY, 660, 780, 2, 75);
 }
 void sliderTactile(int x, int r) {
-  if (dist(x, sliderY, mouseX, mouseY) < r - 10) {
+  if (dist(x, sliderY, mouseX, mouseY) < r - 10)  {
     stroke(white);
     strokeWeight(2);
   } else {
