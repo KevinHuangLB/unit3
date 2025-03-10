@@ -55,7 +55,7 @@ void draw() {
   line(150, 620, 400, 620);
   stroke(black);
 
-  //SLIDER CHANGE THE TACTILE TO BE WHOLE SLIDER MAKE IT RECT TO MAKE WHOLE SLIDER TACTILE
+  //SLIDER
   strokeWeight(8);
   line(460, 660, 460, 780);
   fill(red);
@@ -66,6 +66,8 @@ void draw() {
   stroke(black);
 
   // STAMP BUTTON
+  rectButton(500,620,150,120,lebron);
+  stroke(black);
 }
 void mouseReleased() {
   if (dist(50, 690, mouseX, mouseY) < 30) {
@@ -113,12 +115,13 @@ void circleButton(int x, int y, int r, color c) {
 }
 
 void rectButton(int x, int y, int w, int h, PImage i) { // CHANGE THIS THIS IS NOT COMPLETE
+    noFill();
     if (mouseX > x && mouseX < x + w && mouseY > y && mouseY < y+h) {
     stroke(white);
-    strokeWeight(2);
+    strokeWeight(3);
   } else {
     stroke(black);
-    strokeWeight(1);
+    strokeWeight(2);
   }
   strokeWeight(1);
   rect(x,y,w,h);
@@ -133,6 +136,11 @@ void mouseDragged() {
     strokeWeight(2);
   }
   controlSlider();
+  
+  if (lebronOn == false){
+    // sq
+  }
+  
 }
 void mousePressed() {
   if (mouseY < 560) {
