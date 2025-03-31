@@ -70,17 +70,31 @@ void draw() {
   stroke(black);
 
   // STAMP BUTTON
+  noFill();
   if (lebronOn == true) {
     fill(red);
   }
-  rectButton(500, 620, 150, 120, true);
+  rectButton(500, 620, 150, 120, true,1,black);
   stroke(black);
   strokeWeight(2);
   
   // NEW BUTTON
-  rectButton(725,600,200,35,false);
+  textSize(30);
+  rectButton(725,600,200,35,false,3,white);
+  fill(black);
+  text("New",795,625);
   stroke(black);
   strokeWeight(2);
+  
+  //save button
+  textSize(30);
+  rectButton(725,665,200,35,false,3,white);
+  fill(black);
+  text("Save",795,690);
+  stroke(black);
+  strokeWeight(2);
+
+  
 }
 void mouseReleased() {
   if (dist(50, 690, mouseX, mouseY) < 30) {
@@ -127,7 +141,24 @@ void mouseReleased() {
     lebronOn = true;
   }
   controlSlider();
+  // newButton
+  if (mouseX > 725 && mouseX < 925 && mouseY < 635 && mouseY > 600){
+    background(white);
+  }
+  
+  //save button
+  if (mouseX > 725 && mouseX < 925 && mouseY > 665 && mouseY < 700){
+    selectOutput("Choose a name for your new image file", "saveImage");
+  }
+  
 }
+void saveImage(File f) {
+  if (f != null){
+    PImage canvas = get(0,0,1000,560);
+    canvas.save(f.getAbsolutePath());
+  }
+}
+
 void circleButton(int x, int y, int r, color c) {
   if (dist(x, y, mouseX, mouseY) < r) {
     stroke(white);
@@ -140,8 +171,7 @@ void circleButton(int x, int y, int r, color c) {
   circle(x, y, r * 2);
 }
 
-void rectButton(int x, int y, int w, int h, boolean imageReq) { // CHANGE THIS THIS IS NOT COMPLETE
-  noFill();
+void rectButton(int x, int y, int w, int h, boolean imageReq,int strokeWeight,color c) { // CHANGE THIS THIS IS NOT COMPLETE
   if (mouseX > x && mouseX < x + w && mouseY > y && mouseY < y+h) {
     stroke(white);
     strokeWeight(3);
@@ -149,7 +179,10 @@ void rectButton(int x, int y, int w, int h, boolean imageReq) { // CHANGE THIS T
     stroke(black);
     strokeWeight(2);
   }
-  strokeWeight(1);
+  strokeWeight(strokeWeight);
+    if (c != black){
+    fill(c);
+  }
   rect(x, y, w, h);
   if (imageReq == true){
   image(lebron, x, y, w, h);
