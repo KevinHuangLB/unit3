@@ -74,27 +74,33 @@ void draw() {
   if (lebronOn == true) {
     fill(red);
   }
-  rectButton(500, 620, 150, 120, true,1,black);
-  stroke(black);
-  strokeWeight(2);
-  
-  // NEW BUTTON
-  textSize(30);
-  rectButton(725,600,200,35,false,3,white);
-  fill(black);
-  text("New",795,625);
-  stroke(black);
-  strokeWeight(2);
-  
-  //save button
-  textSize(30);
-  rectButton(725,665,200,35,false,3,white);
-  fill(black);
-  text("Save",795,690);
+  rectButton(500, 620, 150, 120, true, 1, black);
   stroke(black);
   strokeWeight(2);
 
-  
+  // NEW BUTTON
+  textSize(30);
+  rectButton(725, 600, 200, 35, false, 3, white);
+  fill(black);
+  text("New", 795, 625);
+  stroke(black);
+  strokeWeight(2);
+
+  //save button
+  textSize(30);
+  rectButton(725, 665, 200, 35, false, 3, white);
+  fill(black);
+  text("Save", 795, 690);
+  stroke(black);
+  strokeWeight(2);
+
+  //load button
+  textSize(30);
+  rectButton(725, 730, 200, 35, false, 3, white);
+  fill(black);
+  text("Load", 795, 755);
+  stroke(black);
+  strokeWeight(2);
 }
 void mouseReleased() {
   if (dist(50, 690, mouseX, mouseY) < 30) {
@@ -142,20 +148,36 @@ void mouseReleased() {
   }
   controlSlider();
   // newButton
-  if (mouseX > 725 && mouseX < 925 && mouseY < 635 && mouseY > 600){
+  if (mouseX > 725 && mouseX < 925 && mouseY < 635 && mouseY > 600) {
     background(white);
   }
-  
+
   //save button
-  if (mouseX > 725 && mouseX < 925 && mouseY > 665 && mouseY < 700){
+  if (mouseX > 725 && mouseX < 925 && mouseY > 665 && mouseY < 700) {
     selectOutput("Choose a name for your new image file", "saveImage");
   }
-  
+
+  //save button
+  if (mouseX > 725 && mouseX < 925 && mouseY > 730 && mouseY < 765) {
+    selectInput("Pick an image to load", "openImage");
+  }
 }
 void saveImage(File f) {
-  if (f != null){
-    PImage canvas = get(0,0,1000,560);
+  if (f != null) {
+    PImage canvas = get(0, 0, 1000, 560);
     canvas.save(f.getAbsolutePath());
+  }
+}
+
+void openImage(File f) {
+  if (f != null) {
+    //KLUDGE
+    int n = 0;
+    while (n < 10) {
+      PImage pic = loadImage(f.getPath());
+      image(pic, 0, 0);
+      n += 1;
+    }
   }
 }
 
@@ -171,7 +193,7 @@ void circleButton(int x, int y, int r, color c) {
   circle(x, y, r * 2);
 }
 
-void rectButton(int x, int y, int w, int h, boolean imageReq,int strokeWeight,color c) { // CHANGE THIS THIS IS NOT COMPLETE
+void rectButton(int x, int y, int w, int h, boolean imageReq, int strokeWeight, color c) { // CHANGE THIS THIS IS NOT COMPLETE
   if (mouseX > x && mouseX < x + w && mouseY > y && mouseY < y+h) {
     stroke(white);
     strokeWeight(3);
@@ -180,12 +202,12 @@ void rectButton(int x, int y, int w, int h, boolean imageReq,int strokeWeight,co
     strokeWeight(2);
   }
   strokeWeight(strokeWeight);
-    if (c != black){
+  if (c != black) {
     fill(c);
   }
   rect(x, y, w, h);
-  if (imageReq == true){
-  image(lebron, x, y, w, h);
+  if (imageReq == true) {
+    image(lebron, x, y, w, h);
   }
 }
 void mouseDragged() {
